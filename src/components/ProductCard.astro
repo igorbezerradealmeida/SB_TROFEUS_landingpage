@@ -1,0 +1,123 @@
+---
+// 1. LÓGICA (Não muda)
+import type { Props as BaseProps } from 'astro';
+
+interface Item {
+  nome: string;
+  img: string;
+  pedidoMin: string;
+  cores: string[];
+}
+interface Props extends BaseProps {
+  title: string;
+  images: string[];
+}
+
+const { title, images } = Astro.props;
+const swiperId = `swiper-${title.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+---
+
+<!-- 2. ESTILOS (Não mudam) -->
+<style is:global>
+  @import 'swiper/css';
+  @import 'swiper/css/navigation';
+
+  .product-card-swiper {
+    @apply relative overflow-hidden rounded-2xl;
+  }
+
+  .product-card-swiper .swiper-button-next,
+  .product-card-swiper .swiper-button-prev {
+    color: #1f2937;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 10;
+  }
+  .product-card-swiper .swiper-button-prev {
+    left: 10px;
+  }
+  .product-card-swiper .swiper-button-next {
+    right: 10px;
+  }
+  .product-card-swiper:hover .swiper-button-next,
+  .product-card-swiper:hover .swiper-button-prev {
+    opacity: 1;
+  }
+  .product-card-swiper .swiper-button-next::after,
+  .product-card-swiper .swiper-button-prev::after {
+    font-size: 1.5rem !important;
+  }
+</style>
+
+
+<!-- 3. HTML (Não muda) -->
+<div>
+  <!-- Título da Categoria -->
+  <div class="mb-6 inline-block rounded-full bg-yellow-500 px-6 py-2">
+    <h3 class="text-2xl font-bold text-gray-900">
+      {title}
+    </h3>
+  </div>
+
+  <!-- O Swiper é o próprio card -->
+  <div id={swiperId} class="swiper product-card-swiper">
+    
+    <div class="swiper-wrapper">
+      
+      <!-- Loop pelas IMAGENS FINAIS -->
+      {images.map((imgSrc) => (
+        <div class="swiper-slide">
+          <img
+            src={imgSrc}
+            alt={title}
+            class="w-full aspect-[4/3] object-cover"
+            loading="lazy"
+          />
+        </div>
+      ))}
+    </div>
+
+    <!-- Setas de Navegação -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</div>
+
+<!-- 4. SCRIPT -->
+<script>
+  import Swiper from 'swiper';
+  // 1. Importe o 'Autoplay' junto com o 'Navigation'
+  import { Navigation, Autoplay } from 'swiper/modules';
+
+  const productCardSwipers = document.querySelectorAll('.product-card-swiper');
+  
+  productCardSwipers.forEach((cardSwiper) => {
+    const swiperIdSelector = `#${cardSwiper.id}`;
+    
+    new Swiper(swiperIdSelector, {
+      // 2. Registre o 'Autoplay'
+      modules: [Navigation, Autoplay],
+      
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: true,
+
+      // 3. Adicione a configuração do Autoplay
+      autoplay: {
+        delay: 3000, // Passa a cada 3000ms (3 segundos)
+        disableOnInteraction: false, // IMPORTANTE: continua tocando mesmo depois que o usuário mexe
+        pauseOnMouseEnter: true, // Pausa o autoplay quando o mouse está em cima do card
+      },
+      
+      navigation: {
+        nextEl: `${swiperIdSelector} .swiper-button-next`,
+        prevEl: `${swiperIdSelector} .swiper-button-prev`,
+      },
+      allowTouchMove: cardSwiper.querySelectorAll('.swiper-slide').length > 1,
+    });
+  });
+</script>

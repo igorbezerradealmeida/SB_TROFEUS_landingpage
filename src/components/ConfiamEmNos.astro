@@ -1,0 +1,74 @@
+---
+// src/components/ConfiamEmNos.astro
+
+// LISTA DE LOGOS
+// Certifique-se de que esses arquivos existem na pasta public/imagens/logos/
+const logos = [
+  { src: "/imagens/logos/Audi.png", alt: "Audi" },
+  { src: "/imagens/logos/Bayer-Bayer.png", alt: "Bayer" },
+  { src: "/imagens/logos/BMW.png", alt: "BMW" },
+  { src: "/imagens/logos/Cat.png", alt: "Cat" },
+  { src: "/imagens/logos/Continental.png", alt: "Continental" },
+  { src: "/imagens/logos/Ford.png", alt: "Ford" },
+  { src: "/imagens/logos/honda.png", alt: "Honda" },
+  { src: "/imagens/logos/Hyundai.png", alt: "Hyundai" },
+  { src: "/imagens/logos/Ifood.png", alt: "Ifood" },
+  { src: "/imagens/logos/Itau-Personalite.png", alt: "Itau" },
+  { src: "/imagens/logos/Mapfre.png", alt: "Mapfre" },
+  { src: "/imagens/logos/mobil.png", alt: "Mobil" },
+  { src: "/imagens/logos/Mococa.png", alt: "Mococa" },
+  { src: "/imagens/logos/Petribu.png", alt: "Petribu" },
+  { src: "/imagens/logos/Toyota.png", alt: "Toyota" },
+];
+---
+
+<section class="bg-white py-12 md:py-16">
+  <div class="container mx-auto max-w-5xl px-4 text-center">
+    
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+      Quem conhece,<br/>
+      recomenda
+    </h2>
+
+    <div class="mx-auto mb-10 h-1 w-24 bg-yellow-500"></div>
+
+    <div class="grid grid-cols-3 md:grid-cols-5 gap-x-2 gap-y-8 mb-12 items-center justify-items-center">
+      {logos.map((logo) => (
+        <div class="flex items-center justify-center w-full">
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            class="h-16 md:h-24 w-auto object-contain max-w-full"
+            loading="lazy"
+          />
+        </div>
+      ))}
+    </div>
+
+    <div>
+      <a 
+        href="#formulario" 
+        class="
+          inline-block 
+          px-10 py-4 
+          bg-green-600 
+          text-white 
+          border-2 border-green-600 
+          text-xl 
+          font-black 
+          rounded-full 
+          uppercase 
+          tracking-widest 
+          shadow-lg shadow-green-600/20 
+          transition-all duration-300 
+          hover:bg-green-500 
+          hover:text-white 
+          hover:shadow-green-600/50 
+          hover:-translate-y-1
+        "
+      >
+        SOLICITAR ORÇAMENTO
+      </a>
+    </div>
+  </div>
+</section>

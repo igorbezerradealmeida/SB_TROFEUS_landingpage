@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* --- FORÇAR A FONTE INTER EM TUDO --- */
+:root {
+  font-family: 'Inter', sans-serif;
+}
+
+html, body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Garante que títulos e botões também herdem a fonte */
+h1, h2, h3, h4, h5, h6, button, input, select, textarea {
+  font-family: 'Inter', sans-serif;
+}
+
+html, body {
+  overflow-x: hidden;
+}

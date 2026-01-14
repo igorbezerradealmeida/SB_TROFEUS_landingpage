@@ -1,0 +1,100 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-black text-white pt-16 pb-8 border-t-4 border-yellow-500">
+  <div class="container mx-auto max-w-6xl px-4">
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 md:divide-x-2 md:divide-yellow-600">
+      
+      <div class="flex flex-col items-start md:pr-8">
+        <img 
+          src="/imagens/logos/logo-footer.png" 
+          alt="Logo Seu Boné" 
+          class="h-14 w-auto object-contain mb-8" 
+          loading="lazy"
+        />
+        
+        <div>
+          <h4 class="text-yellow-500 font-bold uppercase tracking-wide mb-3 text-sm">
+            Endereços
+          </h4>
+          <div class="text-gray-400 text-sm space-y-4 leading-relaxed">
+            <p>
+              <strong class="text-white block mb-1">São Paulo - SP</strong>
+              Edifício Ahead – R. Cláudio Soares, 72<br/> 
+              Pinheiros, CEP 05422-030
+            </p>
+            <p>
+              <strong class="text-white block mb-1">Natal - RN</strong>
+              Rua Alfredo Pegado Cortez, 3346<br/>
+              Candelária, CEP 59066-080
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-start md:pl-8 md:pr-8">
+        
+        <div class="mb-8 w-full">
+          <h4 class="text-yellow-500 font-bold uppercase tracking-wide mb-2 text-sm">
+            CNPJ
+          </h4>
+          <p class="text-gray-400 text-sm">36.153.457/0001-83</p>
+        </div>
+
+        <div class="w-full">
+          <h4 class="text-yellow-500 font-bold uppercase tracking-wide mb-2 text-sm">
+            Horários de Atendimento
+          </h4>
+          <div class="text-gray-400 text-sm space-y-1">
+            <p>Segunda a quinta: 08h às 19h</p>
+            <p>Sexta-feira: 08h às 17h</p>
+          </div>
+        </div>
+
+        <div class="mt-8 w-full">
+           <h4 class="text-yellow-500 font-bold uppercase tracking-wide mb-2 text-sm">
+            Contato
+          </h4>
+          <p class="text-gray-400 text-sm">contato@seubone.com.br</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-start md:pl-8">
+        
+        <h4 class="text-yellow-500 font-bold uppercase tracking-wide mb-6 text-sm">
+          Segurança e Certificados
+        </h4>
+        
+        <div class="grid grid-cols-2 gap-4 w-full max-w-xs">
+          
+          <div class="flex items-center justify-center h-16">
+             <img src="/imagens/logos/selo-1.png" alt="Selo 1" class="max-h-full max-w-full object-contain" />
+          </div>
+          
+          <div class="flex items-center justify-center h-16">
+             <img src="/imagens/logos/selo-2.png" alt="Selo 2" class="max-h-full max-w-full object-contain" />
+          </div>
+          
+          <div class="flex items-center justify-center h-16">
+             <img src="/imagens/logos/selo-3.png" alt="Selo 3" class="max-h-full max-w-full object-contain" />
+          </div>
+          
+          <div class="flex items-center justify-center h-16">
+             <img src="/imagens/logos/selo-4.png" alt="Selo 4" class="max-h-full max-w-full object-contain" />
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+      <p>&copy; {currentYear} SB Personalizados. Todos os direitos reservados.</p>
+      <p class="mt-2 md:mt-0">Desenvolvido com excelência.</p>
+    </div>
+
+  </div>
+</footer>

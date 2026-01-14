@@ -1,0 +1,50 @@
+---
+// src/components/BannerGrande.astro
+const imagens = [
+  "/imagens/trofeus/TORNEIO_ALPHA_OPEN.jpg",
+  "/imagens/trofeus/TROFEU_CORRIDA.jpg",
+  "/imagens/trofeus/TROFEU_BEACH_TENNIS.jpg",
+  "/imagens/trofeus/COMEMORAÇÃO_DE_100K_DE_FATURAMENTO.jpg",
+];
+---
+
+<div class="w-full mb-10">
+  <div class="relative overflow-hidden rounded-3xl border border-zinc-200 shadow-[0_25px_80px_rgba(0,0,0,0.18)]">
+    <div class="relative h-[260px] md:h-[380px] lg:h-[460px]">
+      {imagens.map((src, idx) => (
+        <img
+          src={src}
+          alt={`Banner ${idx + 1}`}
+          class="banner-grande-slide absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-700"
+          loading={idx === 0 ? "eager" : "lazy"}
+          decoding="async"
+        />
+      ))}
+
+      <div class="absolute inset-0 bg-gradient-to-r from-black/55 via-black/15 to-transparent"></div>
+
+      <div class="absolute left-6 bottom-6 right-6 md:left-10 md:bottom-10 md:right-10">
+        <p class="text-white/90 text-sm md:text-base font-semibold tracking-wide">
+          Exemplos reais de produção
+        </p>
+        <h3 class="text-white text-2xl md:text-4xl font-black leading-tight">
+          Troféus personalizados em destaque
+        </h3>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    const slides = Array.from(document.querySelectorAll(".banner-grande-slide"));
+    if (slides.length) {
+      let i = 0;
+      slides[0].classList.add("opacity-100");
+
+      setInterval(() => {
+        slides[i].classList.remove("opacity-100");
+        i = (i + 1) % slides.length;
+        slides[i].classList.add("opacity-100");
+      }, 4000);
+    }
+  </script>
+</div>

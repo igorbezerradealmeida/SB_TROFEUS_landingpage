@@ -1,0 +1,191 @@
+---
+// src/components/Depoimentos.astro
+
+// DADOS DOS DEPOIMENTOS
+const depoimentos = [
+  {
+    nome: "Ana Rodrigues",
+    empresa: "V8 Roda",
+    texto: "Não poderia deixar de vir agradecer e parabenizar pelo excelente trabalho. Recebemos os bonés. Ficaram lindos. Meu gestor gostou muito. Acabamento perfeito e entrega feita antes do previsto.",
+    avatar: "/imagens/depoimentos/cliente1.jpg" 
+  },
+  {
+    nome: "May",
+    empresa: "JLS Máquinas",
+    texto: "Os clientes estão adorando a qualidade, conforto e o design do boné! A SeuBoné conseguiu trazer tudo que a gente precisava pra Agrishow em um boné.",
+    avatar: "/imagens/depoimentos/cliente2.jpg"
+  },
+  {
+    nome: "Raquel Oliveira",
+    empresa: "AgroBrazil",
+    texto: "Atendimento muito bom por parte dos consultores, sempre buscando resolver e facilitar a entrega e a produção dos bonés!",
+    avatar: "/imagens/depoimentos/cliente3.jpg"
+  },
+  {
+    nome: "Rafaela Silva",
+    empresa: "KLR",
+    texto: "Então, nosso evento é dia 11. O pessoal adiantou super a entrega. Chegou bem antes. Qualidade impecável.",
+    avatar: "/imagens/depoimentos/cliente4.jpg"
+  },
+];
+---
+
+<section class="bg-zinc-900 py-16 md:py-24 overflow-hidden">
+  <div class="container mx-auto max-w-6xl px-4 text-center">
+    
+    <h2 class="mb-4 text-3xl font-extrabold text-white md:text-4xl">
+      O que dizem nossos parceiros
+    </h2>
+    <div class="mx-auto mb-12 h-1 w-24 bg-yellow-500"></div>
+
+    <div class="relative w-full max-w-4xl mx-auto" id="carousel-container">
+      
+      <div class="overflow-hidden relative rounded-2xl">
+        <div class="flex transition-transform duration-500 ease-out" id="carousel-track">
+          
+          {depoimentos.map((depoimento) => (
+            <div class="w-full flex-shrink-0 px-4">
+              <div class="bg-zinc-800 p-8 md:p-12 rounded-2xl shadow-xl border border-zinc-700 flex flex-col items-center">
+                
+                <div class="w-20 h-20 mb-6 rounded-full overflow-hidden border-4 border-yellow-500 shadow-lg">
+                  <img 
+                    src={depoimento.avatar} 
+                    alt={depoimento.nome} 
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    onerror="this.src='https://ui-avatars.com/api/?name=Cliente&background=random'"
+                  />
+                </div>
+
+                <p class="text-lg md:text-xl text-gray-300 italic mb-6 leading-relaxed">
+                  "{depoimento.texto}"
+                </p>
+
+                <div>
+                  <h4 class="text-white font-bold text-lg">{depoimento.nome}</h4>
+                  <span class="text-yellow-500 text-sm font-semibold uppercase tracking-wide">
+                    {depoimento.empresa}
+                  </span>
+                </div>
+
+              </div>
+            </div>
+          ))}
+
+        </div>
+      </div>
+
+      <button id="prevBtn" class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-zinc-800 text-white p-3 rounded-full shadow-lg hover:bg-yellow-500 hover:text-black transition-all z-10 border border-zinc-700">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+
+      <button id="nextBtn" class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-zinc-800 text-white p-3 rounded-full shadow-lg hover:bg-yellow-500 hover:text-black transition-all z-10 border border-zinc-700">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+
+      <div class="flex justify-center mt-8 gap-3" id="carousel-dots">
+        {depoimentos.map((_, index) => (
+          <button 
+            data-index={index} 
+            class={`w-3 h-3 rounded-full transition-all duration-300 ${index === 0 ? 'bg-yellow-500 w-8' : 'bg-gray-600 hover:bg-gray-400'}`}
+            aria-label={`Ir para depoimento ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // LÓGICA DO CARROSSEL (JavaScript Puro)
+  const track = document.getElementById('carousel-track');
+  const slides = track ? Array.from(track.children) : [];
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const dots = document.querySelectorAll('#carousel-dots button');
+  
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+  let autoPlayInterval: number;
+
+  const updateCarousel = () => {
+    if (!track) return;
+    
+    // Move o track
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+    // Atualiza as bolinhas
+    dots.forEach((dot, index) => {
+      if (index === currentIndex) {
+        dot.classList.remove('bg-gray-600', 'w-3');
+        dot.classList.add('bg-yellow-500', 'w-8');
+      } else {
+        dot.classList.add('bg-gray-600', 'w-3');
+        dot.classList.remove('bg-yellow-500', 'w-8');
+      }
+    });
+  };
+
+  const nextSlide = () => {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateCarousel();
+  };
+
+  const prevSlide = () => {
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  };
+
+  // --- CONTROLES MANUAIS ---
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      resetAutoPlay();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      resetAutoPlay();
+    });
+  }
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const index = parseInt(target.dataset.index || '0');
+      currentIndex = index;
+      updateCarousel();
+      resetAutoPlay();
+    });
+  });
+
+  // --- AUTO-PLAY ---
+  const startAutoPlay = () => {
+    autoPlayInterval = setInterval(nextSlide, 8000); // 5 segundos
+  };
+
+  const stopAutoPlay = () => {
+    clearInterval(autoPlayInterval);
+  };
+
+  const resetAutoPlay = () => {
+    stopAutoPlay();
+    startAutoPlay();
+  };
+
+  // Iniciar
+  if (track) {
+    startAutoPlay();
+    
+    // Ajustar tamanho ao redimensionar a tela
+    window.addEventListener('resize', updateCarousel);
+  }
+</script>

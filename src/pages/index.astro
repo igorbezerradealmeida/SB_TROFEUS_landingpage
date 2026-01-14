@@ -1,0 +1,27 @@
+---
+// 1. Importações
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ConfiamEmNos from '../components/ConfiamEmNos.astro';
+import FaixaModelos from '../components/FaixaModelos.astro';
+import ProdutosCarrossel from '../components/ProdutosCarrossel.jsx';
+import Vantagens from '../components/Vantagens.astro';
+import Depoimentos from '../components/Depoimentos.astro';
+import FormularioOrcamento from '../components/FormularioOrcamento.jsx';
+import Footer from '../components/Footer.astro';
+
+---
+
+<Layout>
+  <Header />
+  <Hero />
+  <ConfiamEmNos />
+  <FaixaModelos />
+  <ProdutosCarrossel client:load />
+  <Vantagens />
+  <Depoimentos />
+  <FormularioOrcamento client:load />
+  <Footer />
+</Layout>
